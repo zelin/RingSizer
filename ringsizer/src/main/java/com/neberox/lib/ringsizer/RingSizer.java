@@ -12,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
+import java.util.ArrayList;
+
 /**
  * Created by Umar on 24/05/2018.
  */
@@ -183,5 +185,12 @@ public class RingSizer extends View
         canvas.rotate(8.0F, midX - mDiff, midY - 0.35F * mArrowStrokeWidth);
         canvas.drawPath(this.path, this.paint);
         canvas.restore();
+    }
+
+    public static ArrayList<RingSizeModel> getRingSizes()
+    {
+        ArrayList<RingSizeModel> sizes = new ArrayList<>();
+
+        return sizes;
     }
 }
