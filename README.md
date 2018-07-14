@@ -1,6 +1,6 @@
 # Ring-Sizer
 
-[![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen.svg)](https://github.com/zelin/Ring-Sizer)
+[![Version](https://img.shields.io/badge/Version-0.0.1-brightgreen.svg)](https://github.com/zelin/Ring-Sizer)
 [![Platform](https://img.shields.io/badge/Platform-iPhone-orange.svg)](https://github.com/zelin/Ring-Sizer)
 [![License](https://img.shields.io/badge/License-MIT-black.svg)](https://github.com/zelin/Ring-Sizer)
 [![Donate Bitcoin](https://img.shields.io/badge/Donate-Bitcoin-green.svg)](http://neberox.tk/donate/?amount=2&currency=USD)
@@ -48,7 +48,6 @@ bar.setRingStrokeWidth(20); //(Optional)
 bar.setRingStrokeWidth(20); //(Optional)
 bar.setDiameter(9.91); //(Optional in mm)
 
-
 bar.setArrowColor(Color.WHITE); //(Optional)
 bar.setLinesColor(Color.parseColor("#f2b01e")); //(Optional)
 bar.setTextColor(Color.LTGRAY); //(Optional)
@@ -60,7 +59,7 @@ bar.setTextPaddingHeight(10dp); //(Optional)
 ### Set ratings programmatically
 
 ```java
-bar.setSize(9.91, "0000"); //(Optional in mm, name of size)
+bar.setSize(9.91, "0000"); //(Optional in mm, name of size) for 9.91 mm USA Size code is 0000
 ```
 
 ## Attributes
