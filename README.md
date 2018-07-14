@@ -1,4 +1,4 @@
-# Ring-Sizer-Swift
+# Ring-Sizer
 
 [![Version](https://img.shields.io/badge/Version-0.1.0-brightgreen.svg)](https://github.com/zelin/Ring-Sizer)
 [![Platform](https://img.shields.io/badge/Platform-iPhone-orange.svg)](https://github.com/zelin/Ring-Sizer)
