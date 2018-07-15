@@ -12,6 +12,10 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -187,9 +191,37 @@ public class RingSizer extends View
         canvas.restore();
     }
 
-    public static ArrayList<RingSizeModel> getRingSizes()
+    public static ArrayList<RingSizeModel> getRingSizes(Context mContext)
     {
         ArrayList<RingSizeModel> sizes = new ArrayList<>();
+        try {
+
+            InputStream is = mContext.getAssets().open("sizes.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            JSONObject obj = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("data");
+            JSONArray objArray = obj.getJSONArray("sizes");
+            for(int i = 0; i < objArray.length(); i++)
+            {
+                JSONObject ringSize = objArray.getJSONObject(i);
+                RingSizeModel newRingSize = new RingSizeModel(
+                        Float.valueOf(ringSize.getString("diameter")),
+                        ringSize.getString("usa"),
+                        ringSize.getString("australia"),
+                        ringSize.getString("europe"),
+                        ringSize.getString("japan")
+                );
+
+                sizes.add(newRingSize);
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         return sizes;
     }
