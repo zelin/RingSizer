@@ -18,6 +18,7 @@
 
 
     <com.neberox.lib.ringsizer.RingSizer
+        android:id="@+id/ringSizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
