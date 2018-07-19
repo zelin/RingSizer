@@ -2,14 +2,23 @@
 <resources>
 
     <declare-styleable name="RingSizer">
-        <attr name="ringStrokeWidth"  format="dimension" />
+
         <attr name="arrowStrokeWidth" format="dimension" />
         <attr name="lineStrokeWidth"  format="dimension" />
+        <attr name="ringStrokeWidth"  format="dimension" />
+
+        <attr name="diameter"  format="float" />
 
         <attr name="ringStrokeColor"  format="integer" />
         <attr name="arrowStrokeColor" format="integer" />
         <attr name="lineStrokeColor"  format="integer" />
+        <attr name="textColor"        format="integer" />
+        <attr name="textBgColor"      format="integer" />
 
+        <attr name="fontSize"         format="dimension" />
+
+        <attr name="textPaddingWidth"         format="dimension" />
+        <attr name="textPaddingHeight"        format="dimension" />
 
     </declare-styleable>
 
