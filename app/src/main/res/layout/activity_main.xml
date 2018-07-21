@@ -18,6 +18,8 @@
 
 
     <com.neberox.lib.ringsizer.RingSizer
+        app:textColor="#FF0000"
+        app:arrowStrokeColor="@android:color/black"
         android:id="@+id/ringSizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
