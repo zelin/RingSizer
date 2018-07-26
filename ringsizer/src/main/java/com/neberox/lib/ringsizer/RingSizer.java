@@ -117,6 +117,12 @@ public class RingSizer extends View
         invalidate();
     }
 
+    public void setSize(float diameter, String code)
+    {
+        invalidate();
+    }
+
+
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
