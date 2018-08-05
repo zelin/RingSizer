@@ -6,7 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -61,8 +65,10 @@ public class RingSizer extends View
     // top and bottom text Padding to add in textLabel
     private float textPaddingHeight = 10.0f;
 
+    private float mmConstant = 0;
     private Paint paint = new Paint();
     private Path path   = new Path();
+    private String code = "";
 
     public RingSizer(Context context)
     {
@@ -119,6 +125,8 @@ public class RingSizer extends View
 
     public void setSize(float diameter, String code)
     {
+        this.diameter = diameter;
+        this.code = code;
         invalidate();
     }
 
@@ -127,8 +135,14 @@ public class RingSizer extends View
     {
         super.onDraw(canvas);
 
+
+        final DisplayMetrics dm = getResources().getDisplayMetrics();
+        mmConstant = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, 1, getResources().getDisplayMetrics());;
+
+        // Diameter is in millimeter
         float radius = diameter/2;
-        float distance = radius;
+        // converting diameter to number of pixel points
+        float distance = radius / mmConstant;
 
         float midX = getWidth() / 2;
         float midY = getHeight() / 2;
@@ -139,20 +153,20 @@ public class RingSizer extends View
         this.paint.setColor(mLinesStrokeColor);
 
         // Line 1
-        this.path.moveTo(getLeft(), midY - this.diameter);
-        this.path.lineTo(getLeft() + getWidth(), midY - this.diameter);
+        this.path.moveTo(0, midY - distance);
+        this.path.lineTo(getWidth(), midY - distance);
 
         // Line 2
-        this.path.moveTo(getLeft(), midY + this.diameter);
-        this.path.lineTo(getLeft() + getWidth(), midY + this.diameter);
+        this.path.moveTo(0, midY + distance);
+        this.path.lineTo(getWidth(), midY + distance);
 
         // Line 3
-        this.path.moveTo(midX - this.diameter, getTop());
-        this.path.lineTo(midX - this.diameter, getTop() + getHeight());
+        this.path.moveTo(midX - distance, 0);
+        this.path.lineTo(midX - distance, getHeight());
 
         // Line 4
-        this.path.moveTo(midX + this.diameter, getTop());
-        this.path.lineTo(midX + this.diameter, getTop() + getHeight());
+        this.path.moveTo(midX + distance, 0);
+        this.path.lineTo(midX + distance, getHeight());
 
         canvas.drawPath(this.path, this.paint);
 
@@ -161,17 +175,30 @@ public class RingSizer extends View
         this.paint.setStyle(Paint.Style.STROKE);
         this.paint.setStrokeWidth(mRingStrokeWidth);
         this.paint.setColor(mRingStrokeColor);
-        canvas.drawCircle(midX, midY, radius - 0.5F * mRingStrokeWidth, this.paint);
+        canvas.drawCircle(midX, midY, radius + ( 0.5f * mRingStrokeWidth), this.paint);
 
         this.path.reset();
 
+        this.paint.setStyle(Paint.Style.FILL);
+        this.paint.setStrokeWidth(Color.TRANSPARENT);
+        this.paint.setColor(mTextColor);
+
+        TextPaint textPaint = new TextPaint();
+        textPaint.setTextSize(fontSize);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+
+        RectF textRect = getTextBackgroundSize(midX, midY, code, textPaint)
+        canvas.drawRect(textRect, this.paint);
+
+        this.path.reset();
 
         this.paint.setStrokeWidth(mArrowStrokeWidth);
         this.paint.setStyle(Paint.Style.STROKE);
         this.paint.setColor(mArrowStrokeColor);
 
-        this.path.moveTo(mArrowStrokeWidth + (midX - this.diameter), midY - 0.55F * mArrowStrokeWidth);
-        this.path.lineTo(midX - this.diameter, midY);
+        this.path.moveTo((midX - distance), midY);
+        this.path.lineTo(textRect.left - 5, midY);
+
         this.path.lineTo(mArrowStrokeWidth + (midX - this.diameter), midY + 0.55F * mArrowStrokeWidth);
         this.path.moveTo(midX - this.diameter, midY);
         this.path.lineTo(midX + this.diameter, midY);
@@ -180,7 +207,7 @@ public class RingSizer extends View
         this.path.lineTo(midX + this.diameter - mArrowStrokeWidth, midY + 0.55F * mArrowStrokeWidth);
         canvas.drawPath(this.path, this.paint);
 
-        float mDiff = this.diameter - mArrowStrokeWidth;
+        float mDiff = distance - mArrowStrokeWidth;
 
         this.paint.setStyle(Paint.Style.FILL);
         this.paint.setColor(mLinesStrokeColor);
@@ -230,5 +257,14 @@ public class RingSizer extends View
         }
 
         return sizes;
+    }
+
+
+    private @NonNull
+    Rect getTextBackgroundSize(float x, float y, @NonNull String text, @NonNull TextPaint paint)
+    {
+        Paint.FontMetrics fontMetrics = paint.getFontMetrics();
+        float halfTextLength = paint.measureText(text) / 2 + 5;
+        return new Rect((int) (x - halfTextLength), (int) (y + fontMetrics.top), (int) (x + halfTextLength), (int) (y + fontMetrics.bottom));
     }
 }

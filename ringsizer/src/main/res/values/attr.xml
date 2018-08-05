@@ -9,11 +9,11 @@
 
         <attr name="diameter"  format="float" />
 
-        <attr name="ringStrokeColor"  format="integer" />
-        <attr name="arrowStrokeColor" format="integer" />
-        <attr name="lineStrokeColor"  format="integer" />
-        <attr name="textColor"        format="integer" />
-        <attr name="textBgColor"      format="integer" />
+        <attr name="ringStrokeColor"  format="string" />
+        <attr name="arrowStrokeColor" format="string" />
+        <attr name="lineStrokeColor"  format="string" />
+        <attr name="textColor"        format="string" />
+        <attr name="textBgColor"      format="string" />
 
         <attr name="fontSize"         format="dimension" />
 

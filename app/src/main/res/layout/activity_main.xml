@@ -25,17 +25,6 @@
         android:layout_marginRight="0.0dip"
         />
 
-    <TextView
-        android:background="@drawable/circle"
-        android:layout_margin="10dp"
-        android:textSize="18sp"
-        android:gravity="center"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="USA"
-        android:lines="1"
-        />
-
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
